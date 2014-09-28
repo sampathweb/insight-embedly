@@ -49,7 +49,7 @@ class AggregateByContent(MRJob):
                     view_counts.append(row_val['row_count'])
                 if row_val['activity'] == 'hover':
                     hover_counts.append(row_val['row_count'])
-            med_prog = median(progress_lengths)
+            med_prog = int(median(progress_lengths))
             tot_play = sum(play_counts)
             tot_view = sum(view_counts)
             tot_hover = sum(hover_counts)

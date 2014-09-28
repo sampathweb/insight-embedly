@@ -1,0 +1,76 @@
+using configs in /Users/sampathweb/.mrjob.conf
+using existing scratch bucket mrjob-11d67288556a00fb
+using s3://mrjob-11d67288556a00fb/tmp/ as our scratch dir on S3
+creating tmp directory /var/folders/g9/92w4hf2d49n7nc7gxnnl2jmc0000gn/T/etl_agg_by_content.sampathweb.20140928.144707.384773
+writing master bootstrap script to /var/folders/g9/92w4hf2d49n7nc7gxnnl2jmc0000gn/T/etl_agg_by_content.sampathweb.20140928.144707.384773/b.py
+Copying non-input files into s3://mrjob-11d67288556a00fb/tmp/etl_agg_by_content.sampathweb.20140928.144707.384773/files/
+Waiting 5.0s for S3 eventual consistency
+Creating Elastic MapReduce job flow
+Job flow created with ID: j-3HKEAJUSJ6AXO
+Created new job flow j-3HKEAJUSJ6AXO
+Job launched 30.3s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 60.7s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 91.0s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 121.4s ago, status STARTING: Provisioning Amazon EC2 capacity
+Job launched 151.7s ago, status STARTING: Configuring cluster software
+Job launched 182.4s ago, status STARTING: Configuring cluster software
+Job launched 212.7s ago, status BOOTSTRAPPING: Running bootstrap actions
+Job launched 243.1s ago, status RUNNING: Running step (etl_agg_by_content.sampathweb.20140928.144707.384773: Step 1 of 1)
+Opening ssh tunnel to Hadoop job tracker
+Connect to job tracker at: http://localhost:40465/jobtracker.jsp
+Job launched 274.4s ago, status RUNNING: Running step (etl_agg_by_content.sampathweb.20140928.144707.384773: Step 1 of 1)
+ map   3% reduce   0%
+Job launched 305.3s ago, status RUNNING: Running step (etl_agg_by_content.sampathweb.20140928.144707.384773: Step 1 of 1)
+ map  57% reduce   2%
+Job launched 335.8s ago, status RUNNING: Running step (etl_agg_by_content.sampathweb.20140928.144707.384773: Step 1 of 1)
+ map 100% reduce  27%
+Job launched 366.7s ago, status RUNNING: Running step (etl_agg_by_content.sampathweb.20140928.144707.384773: Step 1 of 1)
+ map 100% reduce  97%
+Job launched 397.2s ago, status RUNNING: Running step (etl_agg_by_content.sampathweb.20140928.144707.384773: Step 1 of 1)
+ map 100% reduce 100%
+Job completed.
+Running time was 144.0s (not counting time spent waiting for the EC2 instances)
+Fetching counters from S3...
+Waiting 5.0s for S3 eventual consistency
+Counters from step 1:
+  File Input Format Counters :
+    Bytes Read: 2676633582
+  File Output Format Counters :
+    Bytes Written: 52844706
+  FileSystemCounters:
+    FILE_BYTES_READ: 146597879
+    FILE_BYTES_WRITTEN: 315001715
+    HDFS_BYTES_READ: 6048
+    S3_BYTES_READ: 2676633582
+    S3_BYTES_WRITTEN: 52844706
+  Job Counters :
+    Launched map tasks: 62
+    Launched reduce tasks: 16
+    Rack-local map tasks: 62
+    SLOTS_MILLIS_MAPS: 1499307
+    SLOTS_MILLIS_REDUCES: 578767
+    Total time spent by all maps waiting after reserving slots (ms): 0
+    Total time spent by all reduces waiting after reserving slots (ms): 0
+  Map-Reduce Framework:
+    CPU time spent (ms): 903200
+    Combine input records: 0
+    Combine output records: 0
+    Map input bytes: 2676345760
+    Map input records: 9594303
+    Map output bytes: 2140783658
+    Map output materialized bytes: 166454486
+    Map output records: 9594303
+    Physical memory (bytes) snapshot: 34910117888
+    Reduce input groups: 571510
+    Reduce input records: 9594303
+    Reduce output records: 571510
+    Reduce shuffle bytes: 166454486
+    SPLIT_RAW_BYTES: 6048
+    Spilled Records: 19188606
+    Total committed heap usage (bytes): 39361445888
+    Virtual memory (bytes) snapshot: 136221614080
+removing tmp directory /var/folders/g9/92w4hf2d49n7nc7gxnnl2jmc0000gn/T/etl_agg_by_content.sampathweb.20140928.144707.384773
+Removing all files in s3://mrjob-11d67288556a00fb/tmp/etl_agg_by_content.sampathweb.20140928.144707.384773/
+Removing all files in s3://mrjob-11d67288556a00fb/tmp/logs/j-3HKEAJUSJ6AXO/
+Killing our SSH tunnel (pid 26938)
+Terminating job flow: j-3HKEAJUSJ6AXO
