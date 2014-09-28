@@ -1,0 +1,14 @@
+Flask
+boto
+mrjob
+numpy
+scipy
+matplotlib
+pandas
+vincent
+seaborn
+psycopg2
+sqlalchemy
+ipython[notebook]
+ipdb
+httpagentparser

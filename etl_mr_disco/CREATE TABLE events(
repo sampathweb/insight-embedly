@@ -1,0 +1,20 @@
+CREATE TABLE events(
+client_key   VARCHAR(100) NOT NULL,
+uid          VARCHAR(100),
+access_class VARCHAR(50),
+endpoint     VARCHAR(50),
+endpoint_ver float,
+event        VARCHAR(50),
+content_type VARCHAR(50),
+content_src  VARCHAR(100),
+content_url  VARCHAR(100),
+client_host  VARCHAR(100),
+client_url   VARCHAR(100),
+timestamp    VARCHAR(25) NOT NULL,
+client_ip    VARCHAR(50),
+process_start int,
+process_end   int,
+user_os      VARCHAR(100),
+user_browser VARCHAR(100),
+status_code int
+);
