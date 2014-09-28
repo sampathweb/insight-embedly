@@ -5,12 +5,12 @@ import pytz
 import httpagentparser
 from collections import defaultdict
 from mrjob.job import MRJob
-from mrjob.protocol import ReprValueProtocol
+from mrjob.protocol import RawValueProtocol
 
 
 def ustr(val):
     try:
-        uval = str(val)
+        uval = str(val) if val else ''
     except UnicodeEncodeError:
         uval = val.encode('ascii', 'ignore')
     return uval
@@ -28,7 +28,7 @@ def get_url_host(url_path):
 
 class ProcessEventLog(MRJob):
 
-    OUTPUT_PROTOCOL = ReprValueProtocol
+    OUTPUT_PROTOCOL = RawValueProtocol  # ReprValueProtocol
 
     # def mapper_pre_filter(self):
     #     return 'grep "c": "video"'
@@ -61,8 +61,8 @@ class ProcessEventLog(MRJob):
         except ValueError:
             error = True
         if not error and row['query'].get('c') == 'video':
-            row_key['client_key'] = ustr(row['clientKey'])
-            row_key['client_ip'] = ustr(row['clientIp'])
+            row_key['client_key'] = ustr(row.get('clientKey', ''))
+            row_key['client_ip'] = ustr(row.get('clientIp', ''))
             row_key['uid'] = ustr(row['query'].get('uid', ''))
             if not row_key['uid']:
                 row_key['uid'] = row_key['client_ip']
