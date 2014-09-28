@@ -39,6 +39,7 @@ class AggregateByContent(MRJob):
             progress_lengths = [0]
             play_counts = [0]
             view_counts = [0]
+            hover_counts = [0]
             for row_val in values:
                 if row_val['activity'] == 'progress':
                     progress_lengths.append(row_val['act_length'])
@@ -46,14 +47,20 @@ class AggregateByContent(MRJob):
                     play_counts.append(row_val['row_count'])
                 if row_val['activity'] == 'view':
                     view_counts.append(row_val['row_count'])
+                if row_val['activity'] == 'hover':
+                    hover_counts.append(row_val['row_count'])
             med_prog = median(progress_lengths)
             tot_play = sum(play_counts)
             tot_view = sum(view_counts)
+            tot_hover = sum(hover_counts)
             if med_prog > 0 and tot_play == 0:
                 tot_play = 1
             if med_prog > 0 and tot_view == 0:
                 tot_view = 1
+            if med_prog > 0 and tot_hover == 0:
+                tot_hover = 1
             row_str += str(tot_view) + delim  # Total View count
+            row_str += str(tot_hover) + delim  # Total Hover count
             row_str += str(tot_play) + delim  # Total Play count
             row_str += str(med_prog)  # Median Play Time
         yield None, row_str
