@@ -1,12 +1,12 @@
 from collections import namedtuple
 from numpy import median
 from mrjob.job import MRJob
-from mrjob.protocol import ReprValueProtocol
+from mrjob.protocol import RawValueProtocol
 
 
 class AggregateByContent(MRJob):
 
-    OUTPUT_PROTOCOL = ReprValueProtocol
+    OUTPUT_PROTOCOL = RawValueProtocol
 
     EventRow = namedtuple('EventRow', ['ev_date', 'client_key', 'client_ip', \
         'uid', 'sid', 'content_type', 'client_host', 'client_url', \
@@ -14,8 +14,8 @@ class AggregateByContent(MRJob):
         'row_count', 'activity', 'act_count', 'act_length'])
 
     def mapper(self, _, line):
-        row = line.split('\\t')
-        event_row = self.EventRow._make(row)
+        row = line.split('\t')
+        event_row = self.EventRow(*row)
         row_key = {}
         row_key['ev_date'] = event_row.ev_date
         row_key['client_host'] = event_row.client_host
@@ -23,10 +23,9 @@ class AggregateByContent(MRJob):
         row_key['content_url'] = event_row.content_url
         row_val = {}
         row_val['activity'] = event_row.activity
-        row_val['act_count'] = event_row.act_count
-        row_val['act_length'] = event_row.act_length
-        row_val['row_count'] = event_row.row_count
-        import ipdb;ipdb.set_trace()
+        row_val['act_count'] = int(event_row.act_count)
+        row_val['act_length'] = int(event_row.act_length)
+        row_val['row_count'] = int(event_row.row_count)
         yield row_key, row_val
 
     def reducer(self, row_key, values):
@@ -37,9 +36,9 @@ class AggregateByContent(MRJob):
             row_str += row_key['client_host'] + delim
             row_str += row_key['content_host'] + delim
             row_str += row_key['content_url'] + delim
-            progress_lengths = []
-            play_counts = []
-            view_counts = []
+            progress_lengths = [0]
+            play_counts = [0]
+            view_counts = [0]
             for row_val in values:
                 if row_val['activity'] == 'progress':
                     progress_lengths.append(row_val['act_length'])
@@ -47,9 +46,16 @@ class AggregateByContent(MRJob):
                     play_counts.append(row_val['row_count'])
                 if row_val['activity'] == 'view':
                     view_counts.append(row_val['row_count'])
-            row_str += str(median(progress_lengths)) + delim  # Median Play Time
-            row_str += str(sum(play_counts)) + delim  # Total Play count
-            row_str += str(sum(view_counts))  # Total View count
+            med_prog = median(progress_lengths)
+            tot_play = sum(play_counts)
+            tot_view = sum(view_counts)
+            if med_prog > 0 and tot_play == 0:
+                tot_play = 1
+            if med_prog > 0 and tot_view == 0:
+                tot_view = 1
+            row_str += str(tot_view) + delim  # Total View count
+            row_str += str(tot_play) + delim  # Total Play count
+            row_str += str(med_prog)  # Median Play Time
         yield None, row_str
 
 
