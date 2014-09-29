@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Insight Data Engineering Project"/>
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>Dashboard</title>
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Loading Flat UI -->
+    <link href="{{url_for('static', filename='dist/css/flat-ui.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/sb-admin-2.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/plugins/social-buttons.css')}}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{url_for('static', filename='img/favicon.ico')}}">
+    <!-- Custom Fonts -->
+    <link href="{{url_for('static', filename='font-awesome-4.1.0/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="dist/js/vendor/html5shiv.js"></script>
+      <script src="dist/js/vendor/respond.min.js"></script>
+    <![endif]-->
+    {% block head %}{% endblock head %}
+  </head>
+  <body>
+    <div class="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Ramesh Sampath - Insight @ Embed.ly</a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+              <li class="divider"></li>
+              <li><a href="">Slides</a>
+              <li class="divider"></li>
+              <li><a href="https://github.com/sampathweb/">Github</a>
+              <li class="divider"></li>
+              <li><a href="https://twitter.com/sampathweb/">Twitter</a>
+<!--               <li class="divider"></li>
+              <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a> -->
+              </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a class="active" href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="flot.html">Flot Charts</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Morris.js Charts</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+
+      <div id="page-wrapper">
+        {% block body %}{% endblock body %}
+      </div>
+    </div> <!-- /container -->
+
+    <footer>
+      <div class="container">
+        <div class="row">
+        </div>
+      </div>
+    </footer>
+    <script src="{{url_for('static', filename='dist/js/vendor/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='dist/js/flat-ui.min.js')}}"></script>
+    {% block js %}{% endblock js %}
+  </body>
+</html>

@@ -18,7 +18,7 @@ main = Blueprint('main', __name__)
 def index():
     ax = video_df.plot(x='views', y='length', kind='scatter', xlim=[video_df['views'].min(), video_df['views'].max()])
     mpld3_data = mpld3.fig_to_dict(ax.get_figure())
-    return render_template('dataviz.html', mpld3_data=json.dumps(mpld3_data))
+    return render_template('dataviz.html', data_table=video_df.head().to_html(), mpld3_data=json.dumps(mpld3_data))
 
 
 @main.route('/favicon.ico')

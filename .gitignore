@@ -1,12 +1,7 @@
-api_key.txt
-api_store.txt
-client_key.txt
-client_store.txt
-ref.md
-*.conf
 env/
-*.pyc
-data_raw/
-data_out/
 app/settings.py
+*.pyc
+*.conf
+*.csv
 temp/
+ref/

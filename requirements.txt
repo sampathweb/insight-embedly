@@ -1,5 +1,7 @@
 Flask
 boto
+python-dateutil
+pyparsing
 pytz
 psycopg2
 sqlalchemy
@@ -10,3 +12,4 @@ mrjob
 numpy
 matplotlib
 pandas
+mpld3

@@ -1,17 +1,29 @@
-<!doctype HTML>
-<html>
-  <head>
-    <title>Vega Scaffold</title>
-        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.js"></script>
-        <script src="http://mpld3.github.io/js/mpld3.v0.2.js"></script>
-  </head>
-  <body>
-    <div id="vis"></div>
-  </body>
-<script type="text/javascript">
-// parse a spec and create a visualization view
-  chart_data = {{mpld3_data | safe}};
-  mpld3.draw_figure("vis", chart_data);
-</script>
-</html>
+{% extends 'base.html' %}
+
+{% block head %}
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.js"></script>
+  <script src="http://mpld3.github.io/js/mpld3.v0.2.js"></script>
+{% endblock head %}
+
+{% block body %}
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="page-header">Data Table</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel">
+          <div id="vis"></div>
+        </div>
+      </div>
+    </div>
+{% endblock body %}
+
+{% block js %}
+  <script type="text/javascript">
+  // parse a spec and create a visualization view
+    chart_data = {{mpld3_data | safe}};
+    mpld3.draw_figure("vis", chart_data);
+  </script>
+{% endblock js %}
