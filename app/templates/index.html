@@ -1,20 +1,17 @@
-<html>
-  <head>
-    <title>Vega Scaffold</title>
-    <script src="http://trifacta.github.io/vega/lib/d3.v3.min.js"></script>
-    <script src="http://trifacta.github.io/vega/lib/d3.geo.projection.min.js"></script>
-    <script src="http://trifacta.github.io/vega/lib/topojson.js"></script>
-    <script src="http://trifacta.github.io/vega/vega.js"></script>
-  </head>
-  <body>
-    <div id="vis"></div>
-  </body>
-<script type="text/javascript">
-// parse a spec and create a visualization view
-function parse(spec) {
-  vg.parse.spec(spec, function(chart) { chart({el:"#vis"}).update(); });
-}
-var data = {{chart_data | safe}};
-parse(data);
-</script>
-</html>
+{% extends 'base.html' %}
+{% block body %}
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="page-header"></h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ul>
+        <li>Select "Activity by Date" to compare loads and plays across time</li>
+        <li>Select "Activity by Source" to compare plays across various content sources such as youtube, instagram, vimeo and vine</li>
+        <li>Select "Table Details" to dive into details</li>
+        </ul>
+      </div>
+    </div>
+{% endblock body %}

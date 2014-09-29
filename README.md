@@ -16,7 +16,6 @@ This data pipeline converts log files coming from user activity at popular websi
 
 ##User interface
 
-
 ![Coming Soon](https://github.com/sampathweb/insight-embedly/blob/master/images/web-ui.png "Data Dashboard")
 
 ![Alt Text](https://github.com/sampathweb/insight-embedly/blob/master/images/ipy-ui.png "Interactive Analysis")
@@ -28,4 +27,4 @@ This data pipeline converts log files coming from user activity at popular websi
 
 * Zach Gazak, Insight Data Science Fellow, for the various whiteboard sessions to understand what features we need for the recommendation model
 
-* Insight Data Engineering Program for making all this possible in four weeks
+* Insight Data Engineering Program for making this possible in four weeks
