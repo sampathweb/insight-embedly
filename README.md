@@ -4,11 +4,14 @@ Developed by Ramesh Sampath
 
 I built a data pipeline for embed.ly that converts log files coming from user activity at popular websites into a queryable data store in Redshift.
 
+I worked with [Zach Gazak](https://github.com/zgazak), a data science fellow @ Insight, who built a recommendation model with this dataset.
+
+
+## About Embed.ly
+
 Embed.ly provides a service that enables popular websites and to understand what content is more engaging in for users.  Embed.ly helps its clients know part of an video users like the most.
 
 By sitting between users and popular websites, Embedly collects a lot of data that can be analyzed to provide greater value to its clients.  Embedly wants to build a data pipeline that a data scientist can build recommendation models from.  This project is an attempt to make this possible.  I am reviewing this with Embedly's engineering team to integrate it with their system.
-
-I worked on this project along with Zach, a data science fellow @ Insight, who built the recommendation model.
 
 ## Data Pipeline
 
