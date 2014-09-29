@@ -22,6 +22,11 @@ def index():
     return render_template('index.html')
 
 
+@main.route('/slides/')
+def slides():
+    return render_template('slides.html')
+
+
 @main.route('/viz-date/')
 def viz_date():
     df = get_events_date_df(g.db_engine)
