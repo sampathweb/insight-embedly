@@ -8,7 +8,7 @@ from .model import get_events_date_df, get_events_by_source_df
 main = Blueprint('main', __name__)
 
 
-def get_params(request):
+def get_params(request=request):
     params = {}
     params['client'] = request.args.get('client', 'storify.com')
     params['from_date'] = request.args.get('from-date', '09/20/2014')
@@ -18,12 +18,14 @@ def get_params(request):
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    params = get_params()
+    return render_template('index.html', params=params)
 
 
 @main.route('/slides/')
 def slides():
-    return render_template('slides.html')
+    params = get_params()
+    return render_template('slides.html', params=params)
 
 
 @main.route('/viz-date/')
