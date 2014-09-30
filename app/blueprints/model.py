@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def get_events_date_df(db_engine):
+def get_events_date_df(db_engine, params):
     events_bydate_df = pd.read_sql('''select ev_date, activity, sum(act_count) as act_count
                              from events
                              where client_host = %(client_host)s
@@ -18,7 +18,7 @@ def get_events_date_df(db_engine):
 
                             ''', \
                         db_engine, \
-                        params={'client_host': "storify.com",
+                        params={'client_host': params['client'],
                               'content_host1': "instagram.com",
                               'content_host2': "youtube.com",
                               'content_host3': "youtu.be",
@@ -26,13 +26,13 @@ def get_events_date_df(db_engine):
                               'content_host5': "vine.co",
                               'activity1': 'load',
                               'activity2': 'play',
-                              'ev_date1': '2014-09-20',
-                              'ev_date2': '2014-09-24'},
+                              'ev_date1': params['from_date'],
+                              'ev_date2': params['to_date']},
                         index_col = ['ev_date', 'activity'])
     return events_bydate_df
 
 
-def get_events_by_source_df(db_engine):
+def get_events_by_source_df(db_engine, params):
     events_bycontent_load_df = pd.read_sql('''select content_host, sum(act_count) as loaded
                            from events
                            where client_host = %(client_host)s
@@ -47,15 +47,15 @@ def get_events_by_source_df(db_engine):
                            order by content_host
                     ''', \
                      db_engine, \
-                     params={'client_host': "storify.com",
+                     params={'client_host': params['client'],
                             'content_host1': "instagram.com",
                             'content_host2': "youtube.com",
                             'content_host3': "youtu.be",
                             'content_host4': "soundcloud.com",
                             'content_host5': "vine.co",
                             'activity1': 'load',
-                            'ev_date1': '2014-09-20',
-                            'ev_date2': '2014-09-24'
+                            'ev_date1': params['from_date'],
+                            'ev_date2': params['to_date']
                     },
                      index_col = ['content_host'])
 
@@ -73,15 +73,15 @@ def get_events_by_source_df(db_engine):
                            order by content_host
                     ''', \
                      db_engine, \
-                     params={'client_host': "storify.com",
+                     params={'client_host': params['client'],
                             'content_host1': "instagram.com",
                             'content_host2': "youtube.com",
                             'content_host3': "youtu.be",
                             'content_host4': "soundcloud.com",
                             'content_host5': "vine.co",
                             'activity1': 'play',
-                            'ev_date1': '2014-09-20',
-                            'ev_date2': '2014-09-24'
+                            'ev_date1': params['from_date'],
+                            'ev_date2': params['to_date']
                     },
                      index_col = ['content_host'])
     events_by_content_df = events_bycontent_load_df.join(events_bycontent_play_df)

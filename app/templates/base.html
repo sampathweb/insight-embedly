@@ -89,7 +89,7 @@
           <div class="form-group">
             <div class="input-group">
             <div class="input-group-addon">Website:</div>
-            <select name="client" class="selectpicker showtick" data-width="300px"  data-style="btn-inverse">
+            <select name="client" class="selectpicker showtick" data-width="300px" data-style="btn-inverse">
               <option>storify.com</option>
               <option>redditmedia.com</option>
               <option>abc.com</option>
@@ -99,12 +99,12 @@
           <div class="form-group">
             <div class="input-group">
               <div class="input-group-addon">Date Range:</div>
-              <input name="from-date" class="form-control datepicker" placeholder="From Date" data-date="09/20/2014" data-date-format="mm/dd/yyyy" value="09/20/2014">
+              <input name="from-date" class="form-control datepicker" placeholder="From Date" data-date="09/20/2014" data-date-format="mm/dd/yyyy" value="{{params['from_date']}}">
             </div>
           </div>
           <div class="form-group">
             <label class="sr-only" for="exampleInputPassword2">To Date</label>
-              <input name="to-date" class="form-control datepicker" placeholder="To Date" data-date="09/26/2014" data-date-format="mm/dd/yyyy" value="09/26/2014">
+              <input name="to-date" class="form-control datepicker" placeholder="To Date" data-date="09/26/2014" data-date-format="mm/dd/yyyy" value="{{params['to_date']}}">
           </div>
           <button type="submit" class="btn btn-primary">Go</button>
         </form>
@@ -126,11 +126,15 @@
     <script src="{{url_for('static', filename='vendor/bootstrap-select/js/bootstrap-select.js')}}"></script>
     <script src="{{url_for('static', filename='vendor/flatui/js/flat-ui.min.js')}}"></script>
     <script type="text/javascript">
-      $('.datepicker').datepicker();
-      $('.datepicker').on('changeDate', function(ev){
-          $(this).datepicker('hide');
+      $(function() {
+        $('.datepicker').datepicker();
+        $('.datepicker').on('changeDate', function(ev){
+            $(this).datepicker('hide');
+        });
+        $('.selectpicker').selectpicker();
+        $('select[name="client"]').val("{{params['client']}}");
+        $('.selectpicker').selectpicker('refresh');
       });
-      $('.selectpicker').selectpicker();
     </script>
     {% block js %}{% endblock js %}
   </body>
