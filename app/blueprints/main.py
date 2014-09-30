@@ -1,5 +1,6 @@
 from flask import Blueprint, redirect, url_for, render_template, g
 import mpld3
+import seaborn as sns
 import json
 from .model import get_events_date_df, get_events_by_source_df
 # from app.data import video_df

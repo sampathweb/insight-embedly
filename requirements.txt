@@ -28,3 +28,5 @@ simplejson==3.6.4
 six==1.8.0
 tornado==4.0.2
 wsgiref==0.1.2
+scipy==0.13.3
+seaborn==0.4.0
