@@ -6,6 +6,7 @@ I built a data pipeline for embed.ly that converts log files coming from user ac
 
 I worked with [Zach Gazak](https://github.com/zgazak), a data science fellow @ Insight, who built a recommendation model with this dataset.
 
+The webapp is hosted at [insight.sampathweb.com](http://insight.sampathweb.com)
 
 ## About Embed.ly
 
@@ -43,3 +44,5 @@ By sitting between users and popular websites, Embedly collects a lot of data th
 * Insight Data Engineering Program for making this possible in four weeks
 
 More details at [SlideShare](http://www.slideshare.net/slideshow/embed_code/39669785)
+
+The webapp is hosted at [insight.sampathweb.com](http://insight.sampathweb.com)
