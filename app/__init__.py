@@ -3,11 +3,12 @@ from flask import Flask, render_template, request, send_from_directory, g
 from sqlalchemy import create_engine
 
 
-def create_app(object_name, env):
+def create_app(object_name, env, dbcon):
     app = Flask(__name__)
 
     app.config.from_object(object_name)
     app.config['ENV'] = env
+    app.config['SQLALCHEMY_DATABASE_URI'] = dbcon
 
     @app.errorhandler(500)
     def error_handler_500(e):
