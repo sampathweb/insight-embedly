@@ -18,6 +18,8 @@
     <!-- Custom Fonts -->
     <link href="{{url_for('static', filename='font-awesome-4.1.0/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 
+    <link href="{{url_for('static', filename='datepicker/css/datepicker.css')}}" rel="stylesheet">
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
       <script src="dist/js/vendor/html5shiv.js"></script>
@@ -93,6 +95,39 @@
 
 
       <div id="page-wrapper">
+<form class="form-inline" role="form">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon">Date Range:</div>
+      <input class="form-control datepicker" type="email" placeholder="From Date">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputPassword2">To Date</label>
+    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="To Date">
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> Remember me
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default">Sign in</button>
+</form>
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+          <input class="datepicker" data-date="09/20/2014" data-date-format="mm/dd/yyyy">
+          <input class="datepicker" data-date-format="mm/dd/yyyy">
+
+        <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+          <input class="span2 datepicker" size="16" type="text" value="09-20-2014">
+          <span class="add-on"><i class="icon-th"></i></span>
+        </div>
+        </div>
+        </form>
         {% block body %}{% endblock body %}
       </div>
     </div> <!-- /container -->
@@ -104,7 +139,11 @@
       </div>
     </footer>
     <script src="{{url_for('static', filename='dist/js/vendor/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='datepicker/js/bootstrap-datepicker.js')}}"></script>
     <script src="{{url_for('static', filename='dist/js/flat-ui.min.js')}}"></script>
+    <script type="text/javascript">
+      $('.datepicker').datepicker();
+    </script>
     {% block js %}{% endblock js %}
   </body>
 </html>
