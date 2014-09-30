@@ -92,19 +92,18 @@
             <select name="client" class="selectpicker showtick" data-width="300px" data-style="btn-inverse">
               <option>storify.com</option>
               <option>redditmedia.com</option>
-              <option>abc.com</option>
             </select>
           </div>
           </div>
           <div class="form-group">
             <div class="input-group">
               <div class="input-group-addon">Date Range:</div>
-              <input name="from-date" class="form-control datepicker" placeholder="From Date" data-date="09/20/2014" data-date-format="mm/dd/yyyy" value="{{params['from_date']}}">
+              <input name="from-date" class="form-control datepicker" placeholder="From Date" data-date="{{params['from_date']}}" data-date-format="yyyy-mm-dd" value="{{params['from_date']}}">
             </div>
           </div>
           <div class="form-group">
             <label class="sr-only" for="exampleInputPassword2">To Date</label>
-              <input name="to-date" class="form-control datepicker" placeholder="To Date" data-date="09/26/2014" data-date-format="mm/dd/yyyy" value="{{params['to_date']}}">
+              <input name="to-date" class="form-control datepicker" placeholder="To Date" data-date="{{params['from_date']}}" data-date-format="yyyy-mm-dd" value="{{params['to_date']}}">
           </div>
           <button type="submit" class="btn btn-primary">Go</button>
         </form>
