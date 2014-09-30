@@ -5,3 +5,5 @@ app/settings.py
 *.csv
 temp/
 ref/
+.elasticbeanstalk/
+.ebextensions/

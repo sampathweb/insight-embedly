@@ -4,17 +4,6 @@ from sqlalchemy import create_engine
 
 
 def create_app(object_name, env):
-    """
-    An flask application factory, as explained here:
-    http://flask.pocoo.org/docs/patterns/appfactories/
-
-    Arguments:
-        object_name: the python path of the config object,
-                     e.g. appname.settings.ProdConfig
-
-        env: The name of the current environment, e.g. prod or dev
-    """
-
     app = Flask(__name__)
 
     app.config.from_object(object_name)
@@ -39,7 +28,7 @@ def create_app(object_name, env):
     def before_request():
         g.app_server = app.config['APP_SERVER']
         if 'db_engine' not in 'g':
-            g.db_engine = create_engine('postgresql://dbadmin:2Insight!@insight-ramesh-dw.cniqeoxrupxt.us-west-2.redshift.amazonaws.com:5439/dev')
+            g.db_engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 
     # register our blueprints
     from app.blueprints import main
