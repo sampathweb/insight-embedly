@@ -17,17 +17,17 @@ def get_events_date_df(db_engine, params):
                              order by ev_date, activity
 
                             ''', \
-        db_engine, \
-        params={'client_host': params['client'],
-            'content_host1': "instagram.com",
-            'content_host2': "youtube.com",
-            'content_host3': "youtu.be",
-            'content_host4': "vine.co",
-            'activity1': 'load',
-            'activity2': 'play',
-            'ev_date1': params['from_date'],
-            'ev_date2': params['to_date']},
-        index_col=['ev_date', 'activity'])
+                        db_engine, \
+                        params={'client_host': params['client'],
+                            'content_host1': params['content_host1'],
+                            'content_host2': params['content_host2'],
+                            'content_host3': params['content_host3'],
+                            'content_host4': params['content_host4'],
+                            'activity1': 'load',
+                            'activity2': 'play',
+                            'ev_date1': params['from_date'],
+                            'ev_date2': params['to_date']},
+                        index_col=['ev_date', 'activity'])
     return events_bydate_df
 
 
@@ -46,10 +46,10 @@ def get_events_by_source_df(db_engine, params):
                     ''', \
                     db_engine, \
                     params={'client_host': params['client'],
-                            'content_host1': "instagram.com",
-                            'content_host2': "youtube.com",
-                            'content_host3': "youtu.be",
-                            'content_host4': "vine.co",
+                            'content_host1': params['content_host1'],
+                            'content_host2': params['content_host2'],
+                            'content_host3': params['content_host3'],
+                            'content_host4': params['content_host4'],
                             'activity1': 'load',
                             'ev_date1': params['from_date'],
                             'ev_date2': params['to_date']},
@@ -69,10 +69,10 @@ def get_events_by_source_df(db_engine, params):
                     ''', \
                      db_engine, \
                      params={'client_host': params['client'],
-                            'content_host1': "instagram.com",
-                            'content_host2': "youtube.com",
-                            'content_host3': "youtu.be",
-                            'content_host4': "vine.co",
+                            'content_host1': params['content_host1'],
+                            'content_host2': params['content_host2'],
+                            'content_host3': params['content_host3'],
+                            'content_host4': params['content_host4'],
                             'activity1': 'play',
                             'ev_date1': params['from_date'],
                             'ev_date2': params['to_date']
@@ -88,6 +88,10 @@ def get_events_by_content(db_engine, params):
     content_load_df = pd.read_sql('''select content_url, sum(act_count) as loaded
                            from events
                            where client_host = %(client_host)s
+                             and ( content_host = %(content_host1)s or
+                                   content_host = %(content_host2)s or
+                                   content_host = %(content_host3)s or
+                                   content_host = %(content_host4)s )
                             and activity = %(activity1)s
                             and ( ev_date between %(ev_date1)s and %(ev_date2)s )
                            group by content_url, content_host
@@ -96,10 +100,10 @@ def get_events_by_content(db_engine, params):
                     ''', \
                      db_engine, \
                      params={'client_host': params['client'],
-                            'content_host1': "instagram.com",
-                            'content_host2': "youtube.com",
-                            'content_host3': "youtu.be",
-                            'content_host4': "vine.co",
+                            'content_host1': params['content_host1'],
+                            'content_host2': params['content_host2'],
+                            'content_host3': params['content_host3'],
+                            'content_host4': params['content_host4'],
                             'activity1': 'load',
                             'ev_date1': params['from_date'],
                             'ev_date2': params['to_date']
@@ -109,6 +113,10 @@ def get_events_by_content(db_engine, params):
     content_play_df = pd.read_sql('''select content_url, sum(act_count) as played
                            from events
                            where client_host = %(client_host)s
+                             and ( content_host = %(content_host1)s or
+                                   content_host = %(content_host2)s or
+                                   content_host = %(content_host3)s or
+                                   content_host = %(content_host4)s )
                             and activity = %(activity1)s
                             and ( ev_date between %(ev_date1)s and %(ev_date2)s )
                            group by content_url, content_host
@@ -116,10 +124,10 @@ def get_events_by_content(db_engine, params):
                     ''', \
                      db_engine, \
                      params={'client_host': params['client'],
-                            'content_host1': "instagram.com",
-                            'content_host2': "youtube.com",
-                            'content_host3': "youtu.be",
-                            'content_host4': "vine.co",
+                            'content_host1': params['content_host1'],
+                            'content_host2': params['content_host2'],
+                            'content_host3': params['content_host3'],
+                            'content_host4': params['content_host4'],
                             'activity1': 'play',
                             'ev_date1': params['from_date'],
                             'ev_date2': params['to_date']

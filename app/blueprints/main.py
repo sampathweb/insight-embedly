@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, url_for, request, render_template, g
 import mpld3
-import seaborn as sns
+import seaborn  # imported for Styling matplotlib plots
 import json
 from .model import get_events_date_df, get_events_by_source_df, get_events_by_content
 # from app.data import video_df
@@ -14,7 +14,20 @@ def get_params(request=request):
     params['from_date'] = request.args.get('from-date', '2014-09-20')
     params['to_date'] = request.args.get('to-date', '2014-09-26')
     params['content_host'] = request.args.get('content-host', '')
+    if not params['content_host']:
+        for idx, host in enumerate(get_content_hosts()):
+            params['content_host' + str(idx + 1)] = host
+    else:
+        for idx in range(1, 5):
+            params['content_host' + str(idx)] = params['content_host']
     return params
+
+
+def get_content_hosts():
+    hosts = []
+    for host in ['instagram.com', 'vine.co', 'youtube.com', 'youtu.be']:
+        hosts.append(host)
+    return hosts
 
 
 def get_clients():
@@ -45,11 +58,14 @@ def viz_date():
     df = get_events_date_df(g.db_engine, params)
     df = df.unstack(1)
     ax = df.plot(legend=['load', 'play'], figsize=(12, 8))
+    ax.set_xlabel('Date')
     mpld3_data = mpld3.fig_to_dict(ax.get_figure())
     table_df = get_events_by_source_df(g.db_engine, params)
     ratio_format = lambda x: '<span class="significant"><bold>%f</bold></span>' % x
     table_html = table_df.head(100).to_html(classes=['table'], formatters={'ratio': ratio_format})
-    return render_template('base_viz.html', clients=get_clients(), params=params, data_table=table_html, mpld3_data=json.dumps(mpld3_data))
+    return render_template('base_viz.html', \
+        clients=get_clients(), content_hosts=get_content_hosts(), params=params, \
+        data_table=table_html, mpld3_data=json.dumps(mpld3_data))
 
 
 @main.route('/viz-content/')
@@ -60,7 +76,9 @@ def viz_content():
     mpld3_data = mpld3.fig_to_dict(ax.get_figure())
     url_format = lambda x: '<a href="%s">%s</a>' % (x, x)
     table_html = df.head(100).to_html(classes=['table'], formatters={'content_url': url_format})
-    return render_template('base_viz.html', clients=get_clients(), params=params, data_table=table_html, mpld3_data=json.dumps(mpld3_data))
+    return render_template('base_viz.html', \
+        clients=get_clients(), content_hosts=get_content_hosts(), params=params, \
+        data_table=table_html, mpld3_data=json.dumps(mpld3_data))
 
 
 @main.route('/favicon.ico')

@@ -6,34 +6,61 @@
 {% endblock head %}
 
 {% block body %}
-      <div class="row">
-      <div class="col-md-12">
         <h2></h2>
         <form class="form-inline" role="form" method="get">
+        <div class="row">
+        <div class="col-md-6">
+        <div class="row">
+        <div class="col-md-7">
           <div class="form-group">
             <div class="input-group">
-            <div class="input-group-addon">Website:</div>
-            <select name="client" class="selectpicker showtick" data-width="300px" data-style="btn-inverse">
-              {% for client in clients %}
-              <option>{{client}}</option>
+              <div class="input-group-addon">Site:</div>
+              <select name="client" class="selectpicker showtick" data-width="300px" data-style="btn-inverse">
+                {% for client in clients %}
+                <option>{{client}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="form-group">
+            <div class="input-group">
+            <div class="input-group-addon">Host:</div>
+            <select name="content-host" class="selectpicker showtick" data-width="200px" data-style="btn-inverse">
+              <option></option>
+              {% for host in content_hosts %}
+              <option>{{host}}</option>
               {% endfor %}
             </select>
           </div>
           </div>
+          </div>
+          </div>
+          </div>
+        <div class="col-md-6">
+        <div class="row">
+        <div class="col-md-6">
           <div class="form-group">
             <div class="input-group">
-              <div class="input-group-addon">Date Range:</div>
+              <div class="input-group-addon">Range:</div>
               <input name="from-date" class="form-control datepicker" placeholder="From Date" data-date="{{params['from_date']}}" data-date-format="yyyy-mm-dd" value="{{params['from_date']}}">
             </div>
           </div>
+        </div>
+        <div class="col-md-4">
           <div class="form-group">
             <label class="sr-only" for="to-date">To Date</label>
               <input name="to-date" class="form-control datepicker" placeholder="To Date" data-date="{{params['from_date']}}" data-date-format="yyyy-mm-dd" value="{{params['to_date']}}">
           </div>
+        </div>
+        <div class="col-md-2 pull-left">
           <button type="submit" class="btn btn-primary">Go</button>
+        </div>
+        </div>
+        </div>
+        </div>
         </form>
-      </div>
-      </div>
       <hr />
     <div class="row">
       <div class="col-md-12">
@@ -55,6 +82,7 @@
         });
         $('.selectpicker').selectpicker();
         $('select[name="client"]').val("{{params['client']}}");
+        $('select[name="content-host"]').val("{{params['content_host']}}");
         $('.selectpicker').selectpicker('refresh');
         chart_data = {{mpld3_data | safe}};
         mpld3.draw_figure("vis", chart_data);
