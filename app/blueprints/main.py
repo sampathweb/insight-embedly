@@ -62,7 +62,7 @@ def viz_date():
     mpld3_data = mpld3.fig_to_dict(ax.get_figure())
     table_df = get_events_by_source_df(g.db_engine, params)
     ratio_format = lambda x: '<span class="significant"><bold>%f</bold></span>' % x
-    table_html = table_df.head(100).to_html(classes=['table'], formatters={'ratio': ratio_format})
+    table_html = table_df.head(20).to_html(classes=['table'], formatters={'ratio': ratio_format})
     return render_template('base_viz.html', \
         clients=get_clients(), content_hosts=get_content_hosts(), params=params, \
         data_table=table_html, mpld3_data=json.dumps(mpld3_data))
@@ -75,7 +75,7 @@ def viz_content():
     ax = df.plot(x='loaded', y='played', kind='scatter', figsize=(12, 8))
     mpld3_data = mpld3.fig_to_dict(ax.get_figure())
     url_format = lambda x: '<a href="%s">%s</a>' % (x, x)
-    table_html = df.head(100).to_html(classes=['table'], formatters={'content_url': url_format})
+    table_html = df.head(20).to_html(classes=['table'], formatters={'content_url': url_format})
     return render_template('base_viz.html', \
         clients=get_clients(), content_hosts=get_content_hosts(), params=params, \
         data_table=table_html, mpld3_data=json.dumps(mpld3_data))
