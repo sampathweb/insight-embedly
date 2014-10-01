@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, url_for, request, render_template, g
 import mpld3
 import seaborn as sns
 import json
-from .model import get_events_date_df, get_events_by_source_df
+from .model import get_events_date_df, get_events_by_source_df, get_events_by_content
 # from app.data import video_df
 
 main = Blueprint('main', __name__)
@@ -11,21 +11,32 @@ main = Blueprint('main', __name__)
 def get_params(request=request):
     params = {}
     params['client'] = request.args.get('client', 'storify.com')
-    params['from_date'] = request.args.get('from-date', '09/20/2014')
-    params['to_date'] = request.args.get('to-date', '09/26/2014')
+    params['from_date'] = request.args.get('from-date', '2014-09-20')
+    params['to_date'] = request.args.get('to-date', '2014-09-26')
+    params['content_host'] = request.args.get('content-host', '')
     return params
+
+
+def get_clients():
+    clients = []
+    for client in ['2dayfm.com.au', 'change.org', 'conservativetribune.com', \
+                'disqus.com', 'edmodo.com', 'fox-sports.massrel.io', 'gamespot.com', \
+                'genius.com', 'giantbomb.com', 'indiegogo.com', 'knowyourmeme.com', \
+                'lockerdome.com', 'medium.com', 'moviepilot.com', 'rap.genius.com', \
+                'redditmedia.com', 'storify.com', 'thescore.com', 'thrillon.com', \
+                'up.massrelevance.com', 'vulture.com']:
+        clients.append(client)
+    return clients
 
 
 @main.route('/')
 def index():
-    params = get_params()
-    return render_template('index.html', params=params)
+    return render_template('index.html')
 
 
 @main.route('/slides/')
 def slides():
-    params = get_params()
-    return render_template('slides.html', params=params)
+    return render_template('slides.html')
 
 
 @main.route('/viz-date/')
@@ -35,26 +46,21 @@ def viz_date():
     df = df.unstack(1)
     ax = df.plot(legend=['load', 'play'], figsize=(12, 8))
     mpld3_data = mpld3.fig_to_dict(ax.get_figure())
-    return render_template('dataviz.html', params=params, data_table=df.head(25).to_html(), mpld3_data=json.dumps(mpld3_data))
+    table_df = get_events_by_source_df(g.db_engine, params)
+    ratio_format = lambda x: '<span class="significant"><bold>%f</bold></span>' % x
+    table_html = table_df.head(100).to_html(classes=['table'], formatters={'ratio': ratio_format})
+    return render_template('base_viz.html', clients=get_clients(), params=params, data_table=table_html, mpld3_data=json.dumps(mpld3_data))
 
 
-@main.route('/viz-content-host/')
-def viz_content_host():
+@main.route('/viz-content/')
+def viz_content():
     params = get_params(request)
-    df = get_events_by_source_df(g.db_engine, params)
-    ax = df.plot(kind='bar', figsize=(12, 8))
+    df = get_events_by_content(g.db_engine, params)
+    ax = df.plot(x='loaded', y='played', kind='scatter', figsize=(12, 8))
     mpld3_data = mpld3.fig_to_dict(ax.get_figure())
-    return render_template('dataviz.html', params=params, data_table=df.head(25).to_html(), mpld3_data=json.dumps(mpld3_data))
-
-
-@main.route('/tab-events/')
-def tab_events():
-    params = get_params(request)
-    df = get_events_date_df(g.db_engine, params=params)
-    df = df.unstack(1)
-    ax = df.plot(legend=['load', 'play'])
-    mpld3_data = mpld3.fig_to_dict(ax.get_figure())
-    return render_template('dataviz.html', params=params, data_table=df.head(25).to_html(), mpld3_data=json.dumps(mpld3_data))
+    url_format = lambda x: '<a href="%s">%s</a>' % (x, x)
+    table_html = df.head(100).to_html(classes=['table'], formatters={'content_url': url_format})
+    return render_template('base_viz.html', clients=get_clients(), params=params, data_table=table_html, mpld3_data=json.dumps(mpld3_data))
 
 
 @main.route('/favicon.ico')
