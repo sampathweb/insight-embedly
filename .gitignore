@@ -3,7 +3,10 @@ run_local.py
 *.pyc
 *.conf
 *.csv
+*.out
+*.pid
 temp/
 ref/
+logs/
 .elasticbeanstalk/
 .ebextensions/
