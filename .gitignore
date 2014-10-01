@@ -1,5 +1,6 @@
 env/
 run_local.py
+app/static/.webassets-cache/
 *.pyc
 *.conf
 *.csv
