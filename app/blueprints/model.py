@@ -3,7 +3,7 @@ import pandas as pd
 
 def get_events_date_df(db_engine, params):
     events_bydate_df = pd.read_sql('''select ev_date, activity, sum(act_count) as act_count
-                             from events
+                             from events_activity
                              where client_host = %(client_host)s
                                 and ( content_host = %(content_host1)s or
                                      content_host = %(content_host2)s or
@@ -33,7 +33,7 @@ def get_events_date_df(db_engine, params):
 
 def get_events_by_source_df(db_engine, params):
     events_bycontent_load_df = pd.read_sql('''select ev_date, content_host, sum(act_count) as loaded
-                           from events
+                           from events_activity
                            where client_host = %(client_host)s
                              and ( content_host = %(content_host1)s or
                                    content_host = %(content_host2)s or
@@ -56,7 +56,7 @@ def get_events_by_source_df(db_engine, params):
                     index_col = ['ev_date', 'content_host'])
 
     events_bycontent_play_df = pd.read_sql('''select ev_date, content_host, sum(act_count) as played
-                           from events
+                           from events_activity
                            where client_host = %(client_host)s
                              and ( content_host = %(content_host1)s or
                                    content_host = %(content_host2)s or
@@ -86,7 +86,7 @@ def get_events_by_source_df(db_engine, params):
 
 def get_events_by_content(db_engine, params):
     content_load_df = pd.read_sql('''select content_url, sum(act_count) as loaded
-                           from events
+                           from events_activity
                            where client_host = %(client_host)s
                              and ( content_host = %(content_host1)s or
                                    content_host = %(content_host2)s or
@@ -111,7 +111,7 @@ def get_events_by_content(db_engine, params):
                      index_col=['content_url'])
 
     content_play_df = pd.read_sql('''select content_url, sum(act_count) as played
-                           from events
+                           from events_activity
                            where client_host = %(client_host)s
                              and ( content_host = %(content_host1)s or
                                    content_host = %(content_host2)s or
